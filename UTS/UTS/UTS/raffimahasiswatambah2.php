@@ -99,7 +99,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="form-group">
             <label>Alamat:</label>
-            <textarea name="alamat" required></textarea>
+            <input type="text" name="alamat" required maxlength="100">
         </div>
         <div class="form-buttons">
             <input class="btn-submit" type="submit" name="submit" value="Simpan">

@@ -10,7 +10,7 @@
         padding: 25px;
         background-color: white;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
     h1 {
         color: #2c3e50;

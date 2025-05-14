@@ -17,8 +17,7 @@
             width: 20%;
             height: 300px;
             background: #FDFAF6;
-            padding: 20px;
-            padding:40px
+            padding: 35px;
         }
         nav ul {list-style-type: none; padding: 0;}
         article {

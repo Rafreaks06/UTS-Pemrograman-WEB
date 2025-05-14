@@ -61,27 +61,37 @@
 <?php
 include 'raffikoneksi.php';
 // Check connection
-if (!$koneksi) {
+    if (!$koneksi) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 if (isset($_POST['submit'])) {
     // Sanitize input data
-    $nid = mysqli_real_escape_string($koneksi, $_POST['nid']);
-    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $prodi = mysqli_real_escape_string($koneksi, $_POST['prodi']);
+        $nid = mysqli_real_escape_string($koneksi, $_POST['nid']);
+        $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+        $prodi = mysqli_real_escape_string($koneksi, $_POST['prodi']);
 
-    $query = "INSERT INTO raffidosen (raffiDosNid, raffiDosNama, raffiDosProdi) 
-              VALUES ('$nid', '$nama', '$prodi')";
+        // Cek apakah NID sudah ada
+        $cek_query = "SELECT raffiDosNid FROM raffidosen WHERE raffiDosNid = '$nid'";
+        $cek_result = mysqli_query($koneksi, $cek_query);
 
-    if (mysqli_query($koneksi, $query)) {
-        header("Location:dosen.php?status=sukses");
-        exit();
-    } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($koneksi);
+        if (mysqli_num_rows($cek_result) > 0) {
+            // NID sudah digunakan
+            echo "<script>alert('Data dengan NID tersebut sudah digunakan.'); window.location.href='dosen.php?status=duplikat';</script>";
+            exit();
+        } else {
+            // Jalankan query insert
+            $query = "INSERT INTO raffidosen (raffiDosNid, raffiDosNama, raffiDosProdi) 
+                    VALUES ('$nid', '$nama', '$prodi')";
+
+            if (mysqli_query($koneksi, $query)) {
+                header("Location:dosen.php?status=sukses");
+                exit();
+        }
     }
 }
-?>
 
+?>
 <div class="form-container">
     <h2>Tambah Data Dosen Baru</h2>
     <form method="POST" action="">
